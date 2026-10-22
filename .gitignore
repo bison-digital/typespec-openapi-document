@@ -1,0 +1,17 @@
+node_modules/
+dist/
+
+# Emitted output. A glob rather than a list of suite directories: an enumerated list goes stale the
+# first time a suite is added, and the failure mode is a generated file committed by accident.
+**/.out/
+# Per-suite sweep directories: each compiles its own set so it never grades another suite's
+# build.
+**/.out-*/
+
+# `pnpm pack` writes here during the packaging oracle.
+*.tgz
+
+# IDE state: nothing about one machine's editor belongs in the repository.
+.idea/
+.vscode/
+*.iml

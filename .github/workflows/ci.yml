@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Every Node major `engines` admits, which is `>=22`. Re-read Node's release schedule when
+        # that range moves.
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+
+      # The suite compiles TypeSpec with the real compiler, runs `@typespec/openapi3` beside this
+      # emitter from one program, packs the package and inspects the tarball. It is slow because each
+      # of those answers a question the cheaper version cannot.
+      - run: pnpm test
+
+      # LAST, always. `tsconfig.json` sets flags the build config deliberately does not, so a green
+      # suite and a red typecheck is an ordinary outcome rather than a contradiction.
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm format:check

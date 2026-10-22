@@ -1,0 +1,79 @@
+{
+	"name": "typespec-openapi-document",
+	"version": "0.6.0",
+	"description": "TypeSpec emitter: export the OpenAPI document @typespec/openapi3 writes as a typed module, with the import resolved for you, framework-agnostic, so you can serve it from anything.",
+	"keywords": [
+		"documentation",
+		"openapi",
+		"openapi3",
+		"scalar",
+		"swagger",
+		"typespec",
+		"typespec-emitter"
+	],
+	"homepage": "https://github.com/bison-digital/typespec-openapi-document#readme",
+	"bugs": {
+		"url": "https://github.com/bison-digital/typespec-openapi-document/issues"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bison-digital/typespec-openapi-document.git"
+	},
+	"files": [
+		"lib/*.tsp",
+		"dist/**",
+		"!dist/test/**"
+	],
+	"type": "module",
+	"main": "dist/src/index.js",
+	"exports": {
+		".": {
+			"typespec": "./lib/main.tsp",
+			"types": "./dist/src/index.d.ts",
+			"default": "./dist/src/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
+	"scripts": {
+		"build": "node --eval \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsc -p tsconfig.build.json",
+		"test": "tsc -p tsconfig.build.json && vitest run",
+		"typecheck": "tsc -p tsconfig.json",
+		"lint": "oxlint src/ test/",
+		"format": "oxfmt",
+		"format:check": "oxfmt --check"
+	},
+	"devDependencies": {
+		"@types/node": "^26.0.0",
+		"@typespec/compiler": "1.17.0",
+		"@typespec/http": "1.17.0",
+		"@typespec/openapi": "1.17.0",
+		"@typespec/openapi3": "1.17.0",
+		"@typespec/rest": "0.87.0",
+		"@typespec/versioning": "0.87.0",
+		"oxfmt": "^0.63.0",
+		"oxlint": "^1.78.0",
+		"typescript": "~7.0.2",
+		"typespec-openapi-document": "link:.",
+		"vitest": "^4.1.9"
+	},
+	"peerDependencies": {
+		"@typespec/compiler": "^1.17.0",
+		"@typespec/openapi3": "^1.17.0",
+		"@typespec/versioning": "^0.87.0"
+	},
+	"peerDependenciesMeta": {
+		"@typespec/versioning": {
+			"optional": true
+		}
+	},
+	"engines": {
+		"node": ">=22.0.0"
+	},
+	"packageManager": "pnpm@11.21.0",
+	"tspMain": "lib/main.tsp"
+}
