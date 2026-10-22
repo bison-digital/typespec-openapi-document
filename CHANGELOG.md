@@ -8,12 +8,18 @@ published types; a patch will not. The **emitted output is part of the API**, a 
 `document.gen.ts` exports, or to the specifier it imports, is a change a consumer feels, and is
 treated as such here rather than as an implementation detail.
 
-## [Unreleased]
+## [0.6.1] - 2026-10-22
+
+A patch: the emitted `document.gen.ts` is unchanged.
 
 ### Added
 
 - `typespec-openapi-document/package.json` is exported, for a tool that finds the installed version
   or root by name.
+
+### Changed
+
+- **Comments, documentation and test fixtures are rewritten in neutral terms.**
 
 ## [0.6.0] - 2026-10-11
 

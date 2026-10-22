@@ -1,6 +1,6 @@
 {
 	"name": "typespec-openapi-document",
-	"version": "0.6.0",
+	"version": "0.6.1",
 	"description": "TypeSpec emitter: export the OpenAPI document @typespec/openapi3 writes as a typed module, with the import resolved for you, framework-agnostic, so you can serve it from anything.",
 	"keywords": [
 		"documentation",
